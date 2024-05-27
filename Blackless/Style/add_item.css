@@ -1,0 +1,39 @@
+body{
+        background-color: rgb(253, 231, 201);
+    }
+
+label{
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        margin-left: 550px;
+        margin-bottom: 5%;
+    }
+
+h2{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #3d251e;
+    margin-left: 45%;
+    margin-bottom: 2%;
+}
+
+table{
+    margin-left: 33%;
+    font-size: larger;
+    text-align: center;
+    border-spacing: 10px;
+    margin-bottom: 10px;
+    border: 5px solid #8b6c5c;
+    border-radius: 5px;
+    padding: 30px;
+    margin-bottom: 30px;
+    background-color: whitesmoke;
+    color: #5b3e31;
+}
+
+#add_item{
+    margin-left: 50%;
+    background-color:aliceblue;
+    
+}
+.remove-btn{
+        background-color: aquamarine;
+    }
