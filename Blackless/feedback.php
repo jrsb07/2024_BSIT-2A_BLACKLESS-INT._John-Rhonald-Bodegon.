@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <?php
     $db_server = "localhost";
     $db_user = "root";
@@ -15,9 +15,7 @@
     }
     ?>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback Form</title>
+    <title>Feedback</title>
     <link rel="stylesheet" href="Style/feedback.css">
 </head>
 <body>

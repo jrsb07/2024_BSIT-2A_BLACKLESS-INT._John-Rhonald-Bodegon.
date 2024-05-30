@@ -29,7 +29,7 @@
 ?>
 <html>
     <head>
-    <title>Admin - Add New Item</title>
+    <title>Menu</title>
     <link rel="stylesheet" href="Style/add_item.css">
     </head>
     <body>

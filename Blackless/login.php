@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <?php
       $db_server = "localhost";
       $db_user = "root";
@@ -7,19 +7,13 @@
       $db_name = "blackless(2)";
       $db_conn = "";
 
-      $conn = mysqli_connect($db_server,
-                              $db_user,
-                              $db_pass,
-                              $db_name);
+      $conn = mysqli_connect($db_server, $db_user, $db_pass, $db_name);
 
     session_start();
     
 ?>
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title> Coffee Shop Login Form </title>
+        <title> Login </title>
         <link rel="stylesheet" href="Style/login.css">
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     </head>

@@ -11,91 +11,26 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'A') {
     exit();
 }
 
-// Fetch open messages
-$sql_fetch_open_messages = "SELECT m.message_id, m.message, m.date_sent, 
-                                   u.user_id, u.user_name
-                            FROM messages AS m
-                            JOIN users AS u ON m.user_id = u.user_id
-                            WHERE m.status = 'open'
+// open messages
+$open_messages = "SELECT m.message_id, m.message, m.date_sent,u.user_id, u.user_name FROM messages AS m
+                            JOIN users AS u ON m.user_id = u.user_id WHERE m.status = 'open'
                             ORDER BY m.date_sent ASC";
-$result_open_messages = mysqli_query($conn, $sql_fetch_open_messages);
+$result_open_messages = mysqli_query($conn, $open_messages);
 
-// Fetch closed messages
-$sql_fetch_closed_messages = "SELECT m.message_id, m.message, m.date_sent, 
-                                     u.user_id, u.user_name, r.reply_text
-                              FROM messages AS m
-                              JOIN users AS u ON m.user_id = u.user_id
-                              JOIN admin_replies AS r ON m.message_id = r.message_id
-                              WHERE m.status = 'closed'
-                              ORDER BY m.date_sent DESC";
-$result_closed_messages = mysqli_query($conn, $sql_fetch_closed_messages);
+// closed messages
+$closed_messages = "SELECT m.message_id, m.message, m.date_sent, u.user_id, u.user_name, r.reply_text FROM messages AS m
+                              JOIN users AS u ON m.user_id = u.user_id JOIN admin_replies AS r ON m.message_id = r.message_id
+                              WHERE m.status = 'closed' ORDER BY m.date_sent DESC";
+$result_closed_messages = mysqli_query($conn, $closed_messages);
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Messages</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body
-        {
-            background-color: rgb(253, 231, 201);
-        }
-        .message-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #c2a97c;
-            background-color: white;
-            border-radius: 5px;
-
-        }
-        .message {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        .message .username {
-            font-weight: bold;
-        }
-        .message .timestamp {
-            font-size: 0.8em;
-            color: #4c3228;
-        }
-        .reply-form {
-            margin-top: 20px;
-        }
-        .reply-form textarea {
-            width: 100%;
-            height: 60px;
-            margin-bottom: 10px;
-            color: #4c3228;
-        }
-        .reply-form input[type="submit"] {
-            padding: 10px 20px;
-            background-color: #cfb690;
-        }
-        .closed-message {
-            background-color: #f9f9f9;
-        }
-        .closed-message .reply-text {
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #e9e9e9;
-        }
-        .delete-button {
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-        .delete-button:hover {
-            background-color: #ff1a1a;
-        }
-    </style>
+    <title>Messages</title>
+    <link rel="stylesheet" href="Style/Amessage.css">
 </head>
 <body>
+<a href="admin.php">Go Back</a>  
 <div class="message-container">
     <h2>Open Messages from Users</h2>
     <?php while ($message = mysqli_fetch_assoc($result_open_messages)) { ?>
@@ -127,6 +62,6 @@ $result_closed_messages = mysqli_query($conn, $sql_fetch_closed_messages);
             </form>
         </div>
     <?php } ?>
-</div>
+</div>      
 </body>
 </html>

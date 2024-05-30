@@ -1,20 +1,20 @@
 <?php
-// Database connection
-$db_server = "localhost";
-$db_user = "root";
-$db_pass = "";
-$db_name = "blackless(2)";
-$conn = mysqli_connect($db_server, $db_user, $db_pass, $db_name);
 
-session_start();
-if($_SESSION['user_type'] != 'A'){
-    header("location: login.php");
-}
-if(isset($_GET['logout'])){
-    session_destroy();
-    header("location: login.php");
-    die();
-}
+    $db_server = "localhost";
+    $db_user = "root";
+    $db_pass = "";
+    $db_name = "blackless(2)";
+    $conn = mysqli_connect($db_server, $db_user, $db_pass, $db_name);
+
+    session_start();
+    if($_SESSION['user_type'] != 'A'){
+        header("location: login.php");
+    }
+    if(isset($_GET['logout'])){
+        session_destroy();
+        header("location: login.php");
+        die();
+    }
 
     if(isset($_GET['Manage Menu'])){
     header("location: add_item.php");}
@@ -24,30 +24,33 @@ if(isset($_GET['logout'])){
 
     if(isset($_GET['Messages'])){
     header("location: A_message.php");}
+
+    if(isset($_GET['Feedbacks'])){
+    header("location: A_feedback.php");}
     
 
-$s_user_id = $_SESSION['user_id'];
+    $s_user_id = $_SESSION['user_id'];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_order'])) {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_order'])) {
     $order_id = $_POST['order_id'];
     $order_status = mysqli_real_escape_string($conn, $_POST['order_status']);
     $order_price = mysqli_real_escape_string($conn, $_POST['order_price']);
 
-    $sql_update_order = "UPDATE orders SET order_status='$order_status', price='$order_price' WHERE order_id='$order_id'";
-    mysqli_query($conn, $sql_update_order);
+    $update_order = "UPDATE orders SET order_status='$order_status', price='$order_price' WHERE order_id='$order_id'";
+    mysqli_query($conn, $update_order);
 }
 
-$sql_get_all_orders = "SELECT o.order_id, m.item_name, o.item_qty, o.add_ons_desc, o.order_status, o.price, u.fullname
+$getorders = "SELECT o.order_id, m.item_name, o.item_qty, o.add_ons_desc, o.order_status, o.price, u.fullname
                        FROM orders AS o
                        JOIN menu AS m ON o.item_id = m.item_id
                        JOIN users AS u ON o.user_id = u.user_id";
-$order_results = mysqli_query($conn, $sql_get_all_orders);
+$order_results = mysqli_query($conn, $getorders);
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin - Manage Orders</title>
+    <title>Admin</title>
     <link rel="stylesheet" href="Style/admin.css">
 </head>
 <body>
@@ -58,6 +61,7 @@ $order_results = mysqli_query($conn, $sql_get_all_orders);
             <li><a href="add_item.php">Manage Menu</a></li>
             <li><a href="sales.php">Sales Report</a></li>
             <li><a href="A_message.php">Messages</a></li>
+            <li><a href="A_feedback.php">Feedbacks</a></li>
             <li><a href="?logout">logout</a></li>
         </ul>
     </nav>

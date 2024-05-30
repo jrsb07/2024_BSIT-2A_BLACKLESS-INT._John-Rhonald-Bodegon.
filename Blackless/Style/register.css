@@ -12,7 +12,7 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url(Style/background.jpg);
+    background: url(background.jpg);
 }
 
 .wrapper{
@@ -96,6 +96,10 @@ body{
     font-weight: 600;
 }
 
+  #password{
+   margin-left: 30%;
+ }
+
 @media (max-width: 576px) {
     .input-box .input-field{
         width: 100%;
@@ -112,5 +116,4 @@ body{
     text-decoration: underline;
 
 }
-
 

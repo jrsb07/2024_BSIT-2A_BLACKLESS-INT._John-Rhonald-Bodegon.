@@ -1,10 +1,9 @@
 body{
     background-color: rgb(253, 231, 201);
 }
-
 table{
-    margin: 10%;
-    padding: 5%;
+    margin: 5%;
+    padding: 3%;
     size: 20;
     background-color: white;
     font-size: 15px;
@@ -15,28 +14,27 @@ table{
     border: 2px solid #4c3228;
     background-origin: padding-box;
     text-align: center;
+    margin-left: 5%;
+    position: fixed;
 }
-
+#comment{
+    text-align: left;
+}
 h2{
+    color: #3c280d;
+    margin-left: 45%;
+    margin-top: 5%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    margin-left: 40%;
-    color: #3d251e;
+    font-size: 30px;
 }
 
-nav, ul{
-    font-size: 20px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #5a2720;
-}
-nav, ul, li, a{
-    color: #75413a
+td{
+    width: 10%;
 }
 
-#update{
-    color: rgb(8, 14, 14);
-    background-color: rgb(255, 201, 130);
+#user_id, #feedback_id, #rating, #feedback_date{
+    width: 0;
 }
-th{
-    color: #442a1f;
-}
+
+
 

@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title> Registration Form </title>
+        <title> Registration </title>
         <link rel="stylesheet" href="Style/register.css">
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     </head>
@@ -44,15 +43,9 @@
                     </div>
                 </div>
 
-                <div class="input-box">
+                <div class="input-box" id="password">
                     <div class="input-field">
-                        <input type="password" name = "Password" placeholder="Password"
-                        required>
-                        <i class='bx bxs-lock-alt'></i>
-                    </div>
-
-                    <div class="input-field">
-                        <input type="password" name = "password"  placeholder="Confirm Password"
+                        <input type="password" name = "Password" placeholder="Password" 
                         required>
                         <i class='bx bxs-lock-alt'></i>
                     </div>

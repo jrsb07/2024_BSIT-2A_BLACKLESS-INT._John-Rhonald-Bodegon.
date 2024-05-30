@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple E-commerce Website</title>
+    <title>Products</title>
     <link rel="stylesheet" href="Style/products.css">
 </head>
 <body>
@@ -16,11 +14,7 @@
         $db_name = "blackless(2)";
         $db_conn = "";
 
-        $conn = mysqli_connect($db_server,
-                                $db_user,
-                                $db_pass,
-                                $db_name);
-
+        $conn = mysqli_connect($db_server, $db_user, $db_pass, $db_name);
     ?>
 
     <header>
@@ -148,7 +142,39 @@
                     }    
                 ?>
             </div>
-            <!-- More products go here -->
+            <div class="product">
+                <img src="coffee/Product8.jpg" alt="Product 8">
+                <?php
+                    $sql = "SELECT * FROM menu WHERE item_id = 17";
+                    $result = $conn->query($sql);
+                    
+                    if ($result->num_rows > 0) {
+                        while($row = $result->fetch_assoc()) {
+                            echo "<h3>" . $row["item_name"] . "</h3>";
+                            echo "<p>" . $row["price"] . " Pesos</p>";
+                        }
+                    } else {
+                        echo "0 results";
+                    }    
+                ?>
+            </div>
+            <div class="product">
+                <img src="coffee/Product9.jpg" alt="Product 9">
+                <?php
+                    $sql = "SELECT * FROM menu WHERE item_id = 18";
+                    $result = $conn->query($sql);
+                    
+                    if ($result->num_rows > 0) {
+                        while($row = $result->fetch_assoc()) {
+                            echo "<h3>" . $row["item_name"] . "</h3>";
+                            echo "<p>" . $row["price"] . " Pesos</p>";
+                        }
+                    } else {
+                        echo "0 results";
+                    }    
+                ?>
+            </div>
+            <!-- Insert new product -->
         </div>
     </div>
     

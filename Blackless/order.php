@@ -6,18 +6,19 @@ $db_name = "blackless(2)";
 $conn = mysqli_connect($db_server, $db_user, $db_pass, $db_name);
 
 session_start();
-if(isset($_GET['delete_from_cart'])){
-    $order_id = $_GET['delete_from_cart'];
-    $sql_delete_from_cart = "DELETE FROM orders WHERE order_id = '$order_id'";
-    $sql_execute = mysqli_query($conn, $sql_delete_from_cart);
+    if(isset($_GET['delete_from_cart'])){
+        $order_id = $_GET['delete_from_cart'];
+        $delete_cart = "DELETE FROM orders WHERE order_id = '$order_id'";
+        $sql_execute = mysqli_query($conn, $delete_cart);
     if($sql_execute){
         header("location: order.php?msg=cart_item_removed");
     }
-}
-if($_SESSION['user_type'] != 'C'){
-    header("location: login.php");
-}
-$s_user_id = $_SESSION['user_id'];
+    }
+    if($_SESSION['user_type'] != 'C'){
+        header("location: login.php");
+    }
+
+    $s_user_id = $_SESSION['user_id'];
 
 $sql_get_orders = "SELECT o.order_id, m.item_name, o.item_qty, o.add_ons_desc, o.order_status, o.price
                     FROM orders AS o
@@ -47,8 +48,8 @@ $order_results = mysqli_query($conn, $sql_get_orders);
         <th>Price</th>
     </tr>
     <?php
-    $sql_get_addons = "SELECT * FROM `ingredients`";
-    $addon_result = mysqli_query($conn, $sql_get_addons);
+    $get_addons = "SELECT * FROM `ingredients`";
+    $addon_result = mysqli_query($conn, $get_addons);
     while ($addon = mysqli_fetch_assoc($addon_result)) { 
         ?>
         <tr>
@@ -59,46 +60,46 @@ $order_results = mysqli_query($conn, $sql_get_orders);
 </table>
    <?php
                
-               $sql_get_items = "SELECT * FROM `menu`";
-               $get_result = mysqli_query($conn, $sql_get_items); ?>
-               <table class="table">
-                   <?php
-                       while ( $row = mysqli_fetch_assoc($get_result) ){ ?>
-                        <tr>
-                            <td id="item"><?php echo $row['item_name'];?></td>
-                            <td><?php echo "Php " . number_format($row['price'],2);?></td>
-                            <td> 
+        $get_items = "SELECT * FROM `menu`";
+        $get_result = mysqli_query($conn, $get_items); ?>
+        <table class="table">
+            <?php
+            while ( $row = mysqli_fetch_assoc($get_result) ){ ?>
+            <tr>
+            <td id="item"><?php echo $row['item_name'];?></td>
+            <td><?php echo "Php " . number_format($row['price'],2);?></td>
+            <td> 
                                
-                                <form action="cart.php" method="get">
-                                  <div class="input-group">
-                                    <input type="text" hidden class="form-control" name="item_id" value="<?php echo $row['item_id'];?>">
-                                    <input type="number" class="form-control" name="cart_qty">
-                                    <label for="comment">Add-on:</label>
-                                    <textarea id="comment" name="add-on" rows="4"></textarea>
-                                    <input type="submit" value="Order" class="btn btn-primary">
-                                </div>
-                                </form>
-                            </td>
-                        </tr>
-                       <?php }
-                   ?>
-               </table>
+            <form action="cart.php" method="get">
+            <div class="input-group">
+                <input type="text" hidden class="form-control" name="item_id" value="<?php echo $row['item_id'];?>">
+                <input type="number" class="form-control" name="cart_qty">
+                <label for="comment">Add-on:</label>
+                <textarea id="comment" name="add-on" rows="4"></textarea>
+                <input type="submit" value="Order" class="btn btn-primary">
+            </div>
+            </form>
+            </td>
+            </tr>
+        <?php }
+                ?>
+        </table>
 
         <div class="status">
                <?php
                if (mysqli_num_rows($order_results) > 0) { ?>
                
-               <h2>My Order Status</h2>
+        <h2>My Order Status</h2>
 
-    <table border="1" class="order">
-        <tr>
-            <th>Order ID</th>
-            <th>Item Name</th>
-            <th>Quantity</th>
-            <th>Add-ons</th>
-            <th>Status</th>
-            <th>Price</th>
-        </tr>
+        <table border="1" class="order">
+            <tr>
+                <th>Order ID</th>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Add-ons</th>
+                <th>Status</th>
+                <th>Price</th>
+            </tr>
     <?php while($order = mysqli_fetch_assoc($order_results)) { ?>
         <tr>
             <td><?php echo $order['order_id']; ?></td>
