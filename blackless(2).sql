@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2024 at 04:47 PM
+-- Generation Time: May 30, 2024 at 09:59 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,8 +41,8 @@ CREATE TABLE `admin_replies` (
 --
 
 INSERT INTO `admin_replies` (`reply_id`, `message_id`, `user_id`, `admin_id`, `reply_text`, `timestamp`) VALUES
-(5, 3, 4, 3, 'Test', '2024-05-24 08:30:10'),
-(9, 6, 15, 3, 'jkhaskjdhaskjd', '2024-05-29 08:23:55');
+(10, 8, 4, 3, 'kljaskljdhjkas', '2024-05-30 07:54:48'),
+(11, 9, 4, 3, 'hgdsdsk', '2024-05-30 12:35:47');
 
 -- --------------------------------------------------------
 
@@ -66,7 +66,11 @@ INSERT INTO `feedbacks` (`user_id`, `feedback_id`, `comment`, `rating`, `feedbac
 (16, 16, 'ryernyy', 2, '2024-05-29 02:51:17'),
 (16, 17, 'yrt4tyutru', 5, '2024-05-29 03:21:49'),
 (4, 19, 'sdasadasdasdasdasdasdasdasdasdas', 1, '2024-05-29 07:21:37'),
-(15, 21, 'nice accomodation', 5, '2024-05-29 09:22:26');
+(15, 21, 'nice accomodation', 5, '2024-05-29 09:22:26'),
+(16, 22, '', 1, '2024-05-30 07:08:15'),
+(22, 23, 'good service', 5, '2024-05-30 07:43:04'),
+(23, 24, 'good service', 5, '2024-05-30 12:29:48'),
+(4, 25, '', 1, '2024-05-30 17:43:32');
 
 -- --------------------------------------------------------
 
@@ -150,10 +154,8 @@ CREATE TABLE `messages` (
 --
 
 INSERT INTO `messages` (`user_id`, `fullname`, `message_id`, `message`, `date_sent`, `status`) VALUES
-(4, 'Joan Salditos', 3, 'Test', '2024-05-24 08:30:10', 'closed'),
-(15, 'Grace R. Bicaldo', 6, 'gAFwtfyTWQFSHGVS', '2024-05-29 08:23:55', 'closed'),
-(4, 'Joan Salditos', 8, 'test', '2024-05-29 02:57:19', 'open'),
-(4, 'Joan Salditos', 9, 'dsadsadasd', '2024-05-29 03:06:23', 'open'),
+(4, 'Joan Salditos', 8, 'test', '2024-05-30 07:54:48', 'closed'),
+(4, 'Joan Salditos', 9, 'dsadsadasd', '2024-05-30 12:35:47', 'closed'),
 (4, 'Joan Salditos', 10, 'dsadasdasd', '2024-05-29 03:06:52', 'open'),
 (16, 'John Rhonald Bodegon', 11, 'etryghr', '2024-05-29 03:16:26', 'open'),
 (16, 'John Rhonald Bodegon', 12, '46h544', '2024-05-29 03:17:10', 'open'),
@@ -166,7 +168,10 @@ INSERT INTO `messages` (`user_id`, `fullname`, `message_id`, `message`, `date_se
 (4, 'Joan Salditos', 19, 'sdaasdasd', '2024-05-29 03:20:48', 'open'),
 (4, 'Joan Salditos', 20, 'fhrtrut', '2024-05-29 03:21:15', 'open'),
 (4, 'Joan Salditos', 21, 'you can chat the seller', '2024-05-29 08:17:07', 'open'),
-(15, 'Grace R. Bicaldo', 22, 'the coffee is good and very nice', '2024-05-29 09:20:04', 'open');
+(15, 'Grace R. Bicaldo', 22, 'the coffee is good and very nice', '2024-05-29 09:20:04', 'open'),
+(22, 'Arjay Ocfemia', 23, 'fhfdh', '2024-05-30 07:41:48', 'open'),
+(23, 'Arjay Ocfemia', 24, 'ready to pickup the coffee', '2024-05-30 12:26:18', 'open'),
+(23, 'Arjay Ocfemia', 25, 'fhety', '2024-05-30 12:28:42', 'open');
 
 -- --------------------------------------------------------
 
@@ -182,7 +187,7 @@ CREATE TABLE `orders` (
   `add_ons_desc` text NOT NULL,
   `time_ordered` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `order_status` varchar(55) NOT NULL DEFAULT 'Order Placed',
-  `price` varchar(55) NOT NULL DEFAULT '--'
+  `price` double(11,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -190,14 +195,11 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `item_id`, `user_id`, `item_qty`, `add_ons_desc`, `time_ordered`, `order_status`, `price`) VALUES
-(17, 1, 11, 1, '', '2024-05-19 15:28:44', 'Ready to be pickup', '200,00'),
-(18, 1, 12, 2, 'sugar syrup', '2024-05-29 03:56:52', 'done', '100.00'),
-(19, 1, 13, 2, 'sugar syrup', '2024-05-29 05:12:26', 'done', '100.00'),
-(31, 2, 4, 2, 'Add sugar syrup', '2024-05-19 16:47:48', 'Order Received', '220.00'),
-(32, 2, 4, 1, '', '2024-05-21 02:48:54', 'Order Received', '110.00'),
-(35, 5, 16, 1, '', '2024-05-29 03:58:31', 'done', '170.00'),
-(38, 1, 21, 1, 'milk', '2024-05-29 09:06:16', 'Order Placed', '--'),
-(39, 1, 15, 1, 'milk', '2024-05-29 09:16:58', 'Order Placed', '--');
+(130, 1, 4, 2, '3', '2024-05-30 16:35:40', 'Order Placed', 180.00),
+(131, 2, 4, 1, '1', '2024-05-30 16:42:05', 'Order Placed', 160.00),
+(132, 1, 4, 1, '2', '2024-05-30 17:42:29', 'Order Placed', 150.00),
+(133, 1, 4, 1, '10', '2024-05-30 17:48:55', 'Order Placed', 100.00),
+(134, 1, 4, 1, '2', '2024-05-30 18:21:22', 'Order Placed', 150.00);
 
 -- --------------------------------------------------------
 
@@ -233,7 +235,9 @@ INSERT INTO `users` (`user_id`, `user_name`, `fullname`, `email`, `phone_number`
 (18, 'abilafrank', 'Frank Lorence Abila', 'abilafrank@gmail.com', '09976355822', 'abilafrank04', 'C'),
 (19, 'Arjay300', 'Arjay Ocfemia', 'Ocfemiaarjay30@gmail.com', '09533303725', 'Arjay123', 'C'),
 (20, 'grace19', 'Grace R. Bicaldo', 'gracebicaldo@gmail.com', '09936114278', 'grace123', 'C'),
-(21, 'sample121', 'sample', 'Arjay30@gmail.com', '09523423423', '123', 'C');
+(21, 'sample121', 'sample', 'Arjay30@gmail.com', '09523423423', '123', 'C'),
+(22, 'Arjay123', 'Arjay Ocfemia', 'Arjay30@gmail.com', '09533303725', '123456', 'C'),
+(23, 'Arjay111', 'Arjay Ocfemia', 'Arjay30@gmail.com', '09533303725', 'Arjay123', 'C');
 
 --
 -- Indexes for dumped tables
@@ -292,13 +296,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_replies`
 --
 ALTER TABLE `admin_replies`
-  MODIFY `reply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `reply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `feedbacks`
 --
 ALTER TABLE `feedbacks`
-  MODIFY `feedback_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `feedback_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `ingredients`
@@ -310,25 +314,25 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Constraints for dumped tables
