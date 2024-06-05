@@ -20,11 +20,6 @@ session_start();
 
     $s_user_id = $_SESSION['user_id'];
 
-$sql_get_orders = "SELECT o.order_id, m.item_name, o.item_qty, o.add_ons_desc, o.order_status, o.price
-                    FROM orders AS o
-                    JOIN menu AS m ON o.item_id = m.item_id
-                    WHERE o.user_id = '$s_user_id'";
-$order_results = mysqli_query($conn, $sql_get_orders);
 ?>
 
 <html>
@@ -42,30 +37,16 @@ $order_results = mysqli_query($conn, $sql_get_orders);
             </ul>
         </nav>
     </div>
-    <table class="add-ons">
-    <tr>
-        <th>Add-on</th>
-        <th>Price</th>
-    </tr>
-    <?php
-    $get_addons = "SELECT * FROM `ingredients`";
-    $addon_result = mysqli_query($conn, $get_addons);
-    while ($addon = mysqli_fetch_assoc($addon_result)) { 
-        ?>
-        <tr>
-            <td><?php echo $addon['ing_name']; ?></td>
-            <td><?php echo "Php " . number_format($addon['ing_pricing'], 2); ?></td>
-        </tr>
-    <?php } ?>
-</table>
-   <?php
-               
+
+        <div class="container">
+   <?php       
         $get_items = "SELECT * FROM `menu`";
         $get_result = mysqli_query($conn, $get_items); ?>
-        <table class="table">
             <?php
             while ( $row = mysqli_fetch_assoc($get_result) ){ ?>
-            <tr>
+            <div class = "products">
+            <td><?php echo '<img src="' . $row["image_path"] . '" alt="' . $row["item_name"] . '">'?></td>
+            <br>
             <td id="item"><?php echo $row['item_name'];?></td>
             <td><?php echo "Php " . number_format($row['price'],2);?></td>
             <td> 
@@ -73,20 +54,40 @@ $order_results = mysqli_query($conn, $sql_get_orders);
             <form action="cart.php" method="get">
             <div class="input-group">
                 <input type="text" hidden class="form-control" name="item_id" value="<?php echo $row['item_id'];?>">
-                <input type="number" class="form-control" name="cart_qty">
+                <label for="quantity">Quantity:</label>
+                <input type="number" class="form-control" min="1" name="cart_qty">
+                <br>
                 <label for="comment">Add-on:</label>
-                <textarea id="comment" name="add-on" rows="4"></textarea>
+<!--                <textarea id="comment" name="add-on" rows="4"></textarea>-->
+                       <select name="add-on" id="">
+                              <option value="">--</option>
+                           <?php 
+                                    $get_addons = "SELECT * FROM `ingredients`";
+                                    $addon_result = mysqli_query($conn, $get_addons);
+                                   while($m = mysqli_fetch_assoc($addon_result)){ ?>
+                
+                                <option value="<?php echo $m['ing_id'];?>"><?php echo "(Php ". $m['ing_pricing'] .") " . $m['ing_name'];?></option>
+                            <?php } ?>
+                           
+                       </select>
                 <input type="submit" value="Order" class="btn btn-primary">
             </div>
             </form>
             </td>
             </tr>
+            </div>
         <?php }
                 ?>
-        </table>
-
+</div>
         <div class="status">
                <?php
+            
+                $sql_get_orders = "SELECT o.order_id, m.item_name, o.item_qty, o.add_ons_desc, o.order_status, o.price
+                                    FROM orders AS o
+                                    JOIN menu AS m ON o.item_id = m.item_id
+                                    WHERE o.user_id = '$s_user_id'";
+                $order_results = mysqli_query($conn, $sql_get_orders);
+            
                if (mysqli_num_rows($order_results) > 0) { ?>
                
         <h2>My Order Status</h2>
@@ -105,9 +106,22 @@ $order_results = mysqli_query($conn, $sql_get_orders);
             <td><?php echo $order['order_id']; ?></td>
             <td><?php echo $order['item_name']; ?></td>
             <td><?php echo $order['item_qty']; ?></td>
-            <td><?php echo $order['add_ons_desc']; ?></td>
+            
+            <td><?php $name_ing = "SELECT i.ing_name FROM ingredients AS i JOIN orders AS o ON FIND_IN_SET(i.ing_id, o.add_ons_desc) > 0
+                                    WHERE o.order_id = " . $order['order_id'];
+
+            $ingredient_result = mysqli_query($conn, $name_ing);
+    
+            if ($ingredient_result && mysqli_num_rows($ingredient_result) > 0) {
+                while ($ingredient = mysqli_fetch_assoc($ingredient_result)) {
+            echo $ingredient['ing_name'];
+            }
+            } else {
+            echo "No add-ons";
+            } ?></td>
+            
             <td><?php echo $order['order_status']; ?></td>
-            <td><?php echo $order['price']; ?></td>
+            <td><?php echo $order['price']; ?></td> 
             <td>
                 <?php if($order['order_status'] == 'Order Placed') { ?>
                     <a href="?delete_from_cart=<?php echo $order['order_id']; ?>" class="cancel">Cancel</a>

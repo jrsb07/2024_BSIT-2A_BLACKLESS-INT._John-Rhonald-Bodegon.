@@ -34,9 +34,9 @@
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_order'])) {
     $order_id = $_POST['order_id'];
     $order_status = mysqli_real_escape_string($conn, $_POST['order_status']);
-    $order_price = mysqli_real_escape_string($conn, $_POST['order_price']);
 
-    $update_order = "UPDATE orders SET order_status='$order_status', price='$order_price' WHERE order_id='$order_id'";
+
+    $update_order = "UPDATE orders SET order_status='$order_status' WHERE order_id='$order_id'";
     mysqli_query($conn, $update_order);
 }
 
@@ -87,13 +87,23 @@ $order_results = mysqli_query($conn, $getorders);
                 <td><?php echo $order['fullname']; ?></td>
                 <td><?php echo $order['item_name']; ?></td>
                 <td><?php echo $order['item_qty']; ?></td>
-                <td><?php echo $order['add_ons_desc']; ?></td>
+                <td><?php 
+                $name_ing = "SELECT i.ing_name FROM ingredients AS i JOIN orders AS o ON FIND_IN_SET(i.ing_id, o.add_ons_desc) > 0
+                                    WHERE o.order_id = " . $order['order_id'];
+
+                $ingredient_result = mysqli_query($conn, $name_ing);
+    
+                if ($ingredient_result && mysqli_num_rows($ingredient_result) > 0) {
+                    while ($ingredient = mysqli_fetch_assoc($ingredient_result)) {
+                echo $ingredient['ing_name'];
+                }
+                } else {
+                    echo "No add-ons";
+                }?></td>
                 <td>
                     <input type="text" name="order_status" value="<?php echo $order['order_status']; ?>" required>
                 </td>
-                <td>
-                    <input type="text" name="order_price" value="<?php echo $order['price']; ?>" required>
-                </td>
+                <td><?php echo $order['price']; ?></td>
                 <td>
                     <input type="hidden" name="order_id" value="<?php echo $order['order_id']; ?>">
                     <input type="submit" name="update_order" value="Update" id="update">

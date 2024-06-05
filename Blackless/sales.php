@@ -13,18 +13,15 @@ if ($_SESSION['user_type'] != 'A') {
 }
 
 // to get data
-$today = date('Y-m-d');
-$yesterday = date('Y-m-d', strtotime('-1 day'));
 $this_year = date('Y');
 $last_year = date('Y', strtotime('-1 year'));
 
-// sales for today
-$sales_today = "SELECT SUM(price) AS total_sales_today FROM orders WHERE DATE(time_ordered) = '$today'";
+$sales_today = "SELECT SUM(price) AS total_sales_today FROM orders WHERE DATE(time_ordered) = CURDATE()";
 $result_today = mysqli_query($conn, $sales_today);
 $total_sales_today = mysqli_fetch_assoc($result_today)['total_sales_today'] ?? 0;
 
 // sales yesterday
-$sales_yesterday = "SELECT SUM(price) AS total_sales_yesterday FROM orders WHERE DATE(time_ordered) = '$yesterday'";
+$sales_yesterday = "SELECT SUM(price) AS total_sales_yesterday FROM orders WHERE DATE(time_ordered) = DATE_SUB(CURDATE(), INTERVAL 1 DAY)";
 $result_sales_yesterday = mysqli_query($conn, $sales_yesterday);
 $total_sales_yesterday = mysqli_fetch_assoc($result_sales_yesterday)['total_sales_yesterday'] ?? 0;
 
